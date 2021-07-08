@@ -1,6 +1,6 @@
 #include <iostream>
-#include "Message.h"
-#include "Parser.h"
+#include "headers/Message.h"
+#include "parser/Parser.h"
 #include <vector>
 #include <fstream>
 #include <chrono>
@@ -49,10 +49,15 @@ void updateSnapshotAsks(LevelUpdate& snapshot, LevelUpdate& update) {
     }
 }
 
-int main() {
+int main(int argc, char* argv[]) {
 
-    std::ifstream inf("huobi_dm_depth.log");
-    std::ofstream outf("output.log");
+    if (argc != 3) {
+        std::cout << "HELP:\n \targv[1] -- path to data.log,\n \targv[2] -- path to output.log\n";
+        exit(1);
+    }
+
+    std::ifstream inf(argv[1]);
+    std::ofstream outf(argv[2]);
     std::ofstream outTime("logsTime.log");
 
     if (!inf || !outf || !outTime)
